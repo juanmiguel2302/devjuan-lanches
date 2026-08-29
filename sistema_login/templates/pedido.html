@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cardápio - Lanchonete DevJuan</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #111;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .botoes-header {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .botao {
+            text-decoration: none;
+            border: none;
+
+            padding: 11px 16px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .botao-pedidos {
+            background: #ff9800;
+            color: white;
+        }
+
+        .botao-pedidos:hover {
+            background: #e68900;
+        }
+
+        .botao-home {
+            background: #333;
+            color: white;
+        }
+
+        .botao-home:hover {
+            background: #444;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 95%;
+            max-width: 1150px;
+
+            margin: 30px auto;
+        }
+
+        /* =========================
+           TÍTULO
+        ========================= */
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .titulo h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .titulo p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* =========================
+           CARDÁPIO
+        ========================= */
+
+        .cardapio {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 22px;
+        }
+
+        /* =========================
+           PRODUTO
+        ========================= */
+
+        .produto {
+            background: white;
+
+            border-radius: 15px;
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.10);
+
+            transition: 0.2s;
+        }
+
+        .produto:hover {
+            transform: translateY(-5px);
+        }
+
+        /*
+        NÃO TEM IMAGEM AQUI.
+        Assim não depende de nenhuma pasta.
+        */
+
+        .produto-imagem {
+            height: 150px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #ff9800,
+                #ffb74d
+            );
+
+            font-size: 70px;
+        }
+
+        .produto-info {
+            padding: 18px;
+        }
+
+        .produto-info h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .produto-info p {
+            color: #666;
+            font-size: 14px;
+
+            margin-bottom: 15px;
+
+            min-height: 40px;
+        }
+
+        .preco {
+            font-size: 21px;
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+        .botao-adicionar {
+            width: 100%;
+
+            border: none;
+
+            background: #ff9800;
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao-adicionar:hover {
+            background: #e68900;
+        }
+
+        /* =========================
+           BOTÃO CARRINHO
+        ========================= */
+
+        .botao-carrinho-flutuante {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            width: 65px;
+            height: 65px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #ff9800;
+            color: white;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.25);
+
+            z-index: 1000;
+
+            transition: 0.2s;
+        }
+
+        .botao-carrinho-flutuante:hover {
+            transform: scale(1.08);
+            background: #e68900;
+        }
+
+        .contador-carrinho {
+            position: absolute;
+
+            top: -5px;
+            right: -5px;
+
+            min-width: 24px;
+            height: 24px;
+
+            padding: 0 6px;
+
+            border-radius: 20px;
+
+            background: #dc3545;
+            color: white;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================
+           FUNDO
+        ========================= */
+
+        .fundo-carrinho {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.45);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.3s;
+
+            z-index: 1998;
+        }
+
+        .fundo-carrinho.aberto {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =========================
+           CARRINHO
+        ========================= */
+
+        .carrinho {
+            position: fixed;
+
+            top: 0;
+            right: 0;
+
+            width: 400px;
+            max-width: 92vw;
+
+            height: 100vh;
+
+            background: white;
+
+            box-shadow:
+                -5px 0 25px rgba(0, 0, 0, 0.25);
+
+            z-index: 1999;
+
+            display: flex;
+            flex-direction: column;
+
+            transform: translateX(100%);
+
+            transition:
+                transform 0.3s ease;
+        }
+
+        .carrinho.aberto {
+            transform: translateX(0);
+        }
+
+        /* =========================
+           HEADER CARRINHO
+        ========================= */
+
+        .carrinho-header {
+            background: #111;
+            color: white;
+
+            padding: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .carrinho-header h2 {
+            font-size: 21px;
+        }
+
+        .botao-fechar {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #333;
+            color: white;
+
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+        .botao-fechar:hover {
+            background: #555;
+        }
+
+        /* =========================
+           LISTA
+        ========================= */
+
+        #listaCarrinho {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 15px 20px;
+        }
+
+        .carrinho-vazio {
+            color: #777;
+
+            text-align: center;
+
+            padding: 50px 10px;
+        }
+
+        /* =========================
+           ITEM
+        ========================= */
+
+        .item-carrinho {
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid #ddd;
+        }
+
+        .item-topo {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+        }
+
+        .item-nome {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .botao-remover {
+            border: none;
+
+            background: transparent;
+
+            color: #dc3545;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao-remover:hover {
+            text-decoration: underline;
+        }
+
+        .item-baixo {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .controles-quantidade {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .botao-quantidade {
+            width: 30px;
+            height: 30px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #eee;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao-quantidade:hover {
+            background: #ddd;
+        }
+
+        .quantidade {
+            min-width: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .item-subtotal {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* =========================
+           FOOTER CARRINHO
+        ========================= */
+
+        .carrinho-footer {
+            padding: 20px;
+
+            border-top:
+                1px solid #ddd;
+
+            background: #fafafa;
+        }
+
+        .total {
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 21px;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .botao-finalizar {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #28a745;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao-finalizar:hover {
+            background: #218838;
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            header h1 {
+                width: 100%;
+            }
+
+            .botoes-header {
+                justify-content: center;
+            }
+
+            .carrinho {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .botao-carrinho-flutuante {
+                right: 18px;
+                bottom: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <h1>
+            🍔 Lanchonete DevJuan
+        </h1>
+
+        <div class="botoes-header">
+
+            <a
+                href="/meus-pedidos"
+                class="botao botao-pedidos"
+            >
+                📋 Meus Pedidos
+            </a>
+
+            <a
+                href="/"
+                class="botao botao-home"
+            >
+                🏠 Início
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================= -->
+
+    <main class="container">
+
+        <div class="titulo">
+
+            <h2>
+                Nosso Cardápio
+            </h2>
+
+            <p>
+                Escolha seus produtos e monte seu pedido!
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             PRODUTOS
+        ========================= -->
+
+        <section class="cardapio">
+
+
+            <!-- X-BURGUER -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🍔
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        X-Burguer
+                    </h3>
+
+                    <p>
+                        Hambúrguer, queijo e molho especial.
+                    </p>
+
+                    <div class="preco">
+                        R$ 20,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('X-Burguer', 20)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- X-SALADA -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🥪
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        X-Salada
+                    </h3>
+
+                    <p>
+                        Hambúrguer, queijo, salada e molho.
+                    </p>
+
+                    <div class="preco">
+                        R$ 22,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('X-Salada', 22)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- HOT DOG -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🌭
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        Hot Dog
+                    </h3>
+
+                    <p>
+                        Cachorro-quente completo.
+                    </p>
+
+                    <div class="preco">
+                        R$ 18,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('Hot Dog', 18)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BATATA -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🍟
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        Batata Frita
+                    </h3>
+
+                    <p>
+                        Batata frita crocante.
+                    </p>
+
+                    <div class="preco">
+                        R$ 15,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('Batata Frita', 15)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- REFRIGERANTE -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🥤
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        Refrigerante
+                    </h3>
+
+                    <p>
+                        Refrigerante gelado.
+                    </p>
+
+                    <div class="preco">
+                        R$ 7,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('Refrigerante', 7)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SOBREMESA -->
+
+            <div class="produto">
+
+                <div class="produto-imagem">
+                    🍰
+                </div>
+
+                <div class="produto-info">
+
+                    <h3>
+                        Sobremesa
+                    </h3>
+
+                    <p>
+                        Uma sobremesa deliciosa.
+                    </p>
+
+                    <div class="preco">
+                        R$ 10,00
+                    </div>
+
+                    <button
+                        class="botao-adicionar"
+                        onclick="adicionarCarrinho('Sobremesa', 10)"
+                    >
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         BOTÃO CARRINHO
+    ========================= -->
+
+    <button
+        class="botao-carrinho-flutuante"
+        onclick="abrirCarrinho()"
+        title="Abrir carrinho"
+    >
+
+        🛒
+
+        <span
+            id="contadorCarrinho"
+            class="contador-carrinho"
+        >
+            0
+        </span>
+
+    </button>
+
+
+    <!-- =========================
+         FUNDO ESCURO
+    ========================= -->
+
+    <div
+        id="fundoCarrinho"
+        class="fundo-carrinho"
+        onclick="fecharCarrinho()"
+    ></div>
+
+
+    <!-- =========================
+         CARRINHO
+    ========================= -->
+
+    <aside
+        id="carrinho"
+        class="carrinho"
+    >
+
+        <div class="carrinho-header">
+
+            <h2>
+                🛒 Seu Carrinho
+            </h2>
+
+            <button
+                class="botao-fechar"
+                onclick="fecharCarrinho()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="listaCarrinho">
+
+            <p class="carrinho-vazio">
+                Seu carrinho está vazio.
+            </p>
+
+        </div>
+
+
+        <div class="carrinho-footer">
+
+            <div class="total">
+
+                <span>
+                    Total:
+                </span>
+
+                <span>
+                    R$
+                    <span id="total">
+                        0.00
+                    </span>
+                </span>
+
+            </div>
+
+            <button
+                class="botao-finalizar"
+                onclick="finalizarPedido()"
+            >
+                Finalizar Pedido
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        let carrinho = [];
+
+
+        /* =========================
+           ABRIR CARRINHO
+        ========================= */
+
+        function abrirCarrinho() {
+
+            document
+                .getElementById("carrinho")
+                .classList
+                .add("aberto");
+
+            document
+                .getElementById("fundoCarrinho")
+                .classList
+                .add("aberto");
+        }
+
+
+        /* =========================
+           FECHAR CARRINHO
+        ========================= */
+
+        function fecharCarrinho() {
+
+            document
+                .getElementById("carrinho")
+                .classList
+                .remove("aberto");
+
+            document
+                .getElementById("fundoCarrinho")
+                .classList
+                .remove("aberto");
+        }
+
+
+        /* =========================
+           ADICIONAR PRODUTO
+        ========================= */
+
+        function adicionarCarrinho(nome, preco) {
+
+            /*
+            Primeiro colocamos o produto no carrinho.
+            */
+
+            const produtoExistente =
+                carrinho.find(function(item) {
+
+                    return item.nome === nome;
+
+                });
+
+
+            if (produtoExistente) {
+
+                produtoExistente.quantidade++;
+
+            } else {
+
+                carrinho.push({
+
+                    nome: nome,
+                    preco: preco,
+                    quantidade: 1
+
+                });
+
+            }
+
+
+            atualizarCarrinho();
+
+
+            /*
+            Abre o carrinho.
+            */
+
+            abrirCarrinho();
+        }
+
+
+        /* =========================
+           AUMENTAR
+        ========================= */
+
+        function aumentarQuantidade(nome) {
+
+            const item =
+                carrinho.find(function(item) {
+
+                    return item.nome === nome;
+
+                });
+
+
+            if (item) {
+
+                item.quantidade++;
+
+            }
+
+
+            atualizarCarrinho();
+        }
+
+
+        /* =========================
+           DIMINUIR
+        ========================= */
+
+        function diminuirQuantidade(nome) {
+
+            const item =
+                carrinho.find(function(item) {
+
+                    return item.nome === nome;
+
+                });
+
+
+            if (!item) {
+                return;
+            }
+
+
+            item.quantidade--;
+
+
+            if (item.quantidade <= 0) {
+
+                carrinho =
+                    carrinho.filter(function(produto) {
+
+                        return produto.nome !== nome;
+
+                    });
+
+            }
+
+
+            atualizarCarrinho();
+        }
+
+
+        /* =========================
+           REMOVER
+        ========================= */
+
+        function removerCarrinho(nome) {
+
+            carrinho =
+                carrinho.filter(function(item) {
+
+                    return item.nome !== nome;
+
+                });
+
+
+            atualizarCarrinho();
+        }
+
+
+        /* =========================
+           ATUALIZAR CARRINHO
+        ========================= */
+
+        function atualizarCarrinho() {
+
+            const lista =
+                document.getElementById(
+                    "listaCarrinho"
+                );
+
+            const totalElemento =
+                document.getElementById(
+                    "total"
+                );
+
+            const contadorElemento =
+                document.getElementById(
+                    "contadorCarrinho"
+                );
+
+
+            lista.innerHTML = "";
+
+
+            let total = 0;
+            let quantidadeTotal = 0;
+
+
+            /* CARRINHO VAZIO */
+
+            if (carrinho.length === 0) {
+
+                lista.innerHTML =
+                    '<p class="carrinho-vazio">' +
+                    'Seu carrinho está vazio.' +
+                    '</p>';
+
+                totalElemento.textContent =
+                    "0.00";
+
+                contadorElemento.textContent =
+                    "0";
+
+                return;
+            }
+
+
+            /* CRIAR ITENS */
+
+            carrinho.forEach(function(item) {
+
+                const subtotal =
+                    item.preco *
+                    item.quantidade;
+
+
+                total += subtotal;
+
+                quantidadeTotal +=
+                    item.quantidade;
+
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+                div.className =
+                    "item-carrinho";
+
+
+                /* TOPO */
+
+                const topo =
+                    document.createElement(
+                        "div"
+                    );
+
+                topo.className =
+                    "item-topo";
+
+
+                const nome =
+                    document.createElement(
+                        "span"
+                    );
+
+                nome.className =
+                    "item-nome";
+
+                nome.textContent =
+                    item.nome;
+
+
+                const remover =
+                    document.createElement(
+                        "button"
+                    );
+
+                remover.className =
+                    "botao-remover";
+
+                remover.textContent =
+                    "Remover";
+
+
+                remover.onclick =
+                    function() {
+
+                        removerCarrinho(
+                            item.nome
+                        );
+
+                    };
+
+
+                topo.appendChild(nome);
+
+                topo.appendChild(remover);
+
+
+                /* PARTE DE BAIXO */
+
+                const baixo =
+                    document.createElement(
+                        "div"
+                    );
+
+                baixo.className =
+                    "item-baixo";
+
+
+                /* CONTROLES */
+
+                const controles =
+                    document.createElement(
+                        "div"
+                    );
+
+                controles.className =
+                    "controles-quantidade";
+
+
+                const diminuir =
+                    document.createElement(
+                        "button"
+                    );
+
+                diminuir.className =
+                    "botao-quantidade";
+
+                diminuir.textContent =
+                    "−";
+
+
+                diminuir.onclick =
+                    function() {
+
+                        diminuirQuantidade(
+                            item.nome
+                        );
+
+                    };
+
+
+                const quantidade =
+                    document.createElement(
+                        "span"
+                    );
+
+                quantidade.className =
+                    "quantidade";
+
+                quantidade.textContent =
+                    item.quantidade;
+
+
+                const aumentar =
+                    document.createElement(
+                        "button"
+                    );
+
+                aumentar.className =
+                    "botao-quantidade";
+
+                aumentar.textContent =
+                    "+";
+
+
+                aumentar.onclick =
+                    function() {
+
+                        aumentarQuantidade(
+                            item.nome
+                        );
+
+                    };
+
+
+                controles.appendChild(
+                    diminuir
+                );
+
+                controles.appendChild(
+                    quantidade
+                );
+
+                controles.appendChild(
+                    aumentar
+                );
+
+
+                /* SUBTOTAL */
+
+                const preco =
+                    document.createElement(
+                        "span"
+                    );
+
+                preco.className =
+                    "item-subtotal";
+
+                preco.textContent =
+                    "R$ " +
+                    subtotal.toFixed(2);
+
+
+                baixo.appendChild(
+                    controles
+                );
+
+                baixo.appendChild(
+                    preco
+                );
+
+
+                div.appendChild(topo);
+
+                div.appendChild(baixo);
+
+                lista.appendChild(div);
+
+            });
+
+
+            totalElemento.textContent =
+                total.toFixed(2);
+
+            contadorElemento.textContent =
+                quantidadeTotal;
+        }
+
+
+        /* =========================
+           FINALIZAR PEDIDO
+        ========================= */
+
+        function finalizarPedido() {
+
+            if (carrinho.length === 0) {
+
+                alert(
+                    "Seu carrinho está vazio!"
+                );
+
+                return;
+            }
+
+
+            /*
+            Antes de mandar para qualquer
+            pagamento, verificamos se o
+            usuário está logado.
+            */
+
+            fetch("/verificar-login")
+
+                .then(function(response) {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Erro ao verificar login."
+                        );
+
+                    }
+
+                    return response.json();
+
+                })
+
+                .then(function(data) {
+
+                    /*
+                    NÃO ESTÁ LOGADO
+                    */
+
+                    if (!data.logado) {
+
+                        /*
+                        Salvamos o carrinho
+                        para não perder os produtos.
+                        */
+
+                        localStorage.setItem(
+                            "carrinhoDevJuan",
+                            JSON.stringify(carrinho)
+                        );
+
+
+                        /*
+                        Vai para LOGIN.
+                        */
+
+                        window.location.href =
+                            "/login";
+
+                        return;
+                    }
+
+
+                    /*
+                    ESTÁ LOGADO
+                    */
+
+                    localStorage.setItem(
+                        "carrinhoDevJuan",
+                        JSON.stringify(carrinho)
+                    );
+
+
+                    /*
+                    Vai para a página
+                    de pagamento.
+                    */
+
+                    window.location.href =
+                        "/pagamento";
+
+                })
+
+                .catch(function(error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Não foi possível verificar o login."
+                    );
+
+                });
+        }
+
+
+        /* =========================
+           RECUPERAR CARRINHO
+        ========================= */
+
+        function recuperarCarrinho() {
+
+            const carrinhoSalvo =
+                localStorage.getItem(
+                    "carrinhoDevJuan"
+                );
+
+
+            if (!carrinhoSalvo) {
+
+                atualizarCarrinho();
+
+                return;
+            }
+
+
+            try {
+
+                const carrinhoConvertido =
+                    JSON.parse(carrinhoSalvo);
+
+
+                if (
+                    Array.isArray(
+                        carrinhoConvertido
+                    )
+                ) {
+
+                    carrinho =
+                        carrinhoConvertido;
+
+                }
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao recuperar carrinho:",
+                    erro
+                );
+
+            }
+
+
+            atualizarCarrinho();
+        }
+
+
+        /* =========================
+           INICIAR
+        ========================= */
+
+        recuperarCarrinho();
+
+    </script>
+
+</body>
+
+</html>

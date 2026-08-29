@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pagamento - Lanchonete DevJuan</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7a00,
+                    #ff3d00
+                );
+
+            padding: 30px 20px;
+        }
+
+        .container {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #ff4d00;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitulo {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+        }
+
+        .cliente-box {
+
+            background: #fff4ec;
+
+            border: 1px solid #ffd4b8;
+
+            border-radius: 14px;
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .cliente-box strong {
+
+            color: #ff4d00;
+        }
+
+        .secao {
+
+            margin-top: 22px;
+        }
+
+        .secao h2 {
+
+            font-size: 19px;
+
+            margin-bottom: 12px;
+
+            color: #333;
+        }
+
+        .opcoes {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+        .opcao {
+
+            border: 2px solid #ddd;
+
+            border-radius: 14px;
+
+            padding: 16px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            text-align: center;
+        }
+
+        .opcao:hover {
+
+            border-color: #ff7a00;
+        }
+
+        .opcao input {
+
+            display: none;
+        }
+
+        .opcao.selecionada {
+
+            border-color: #ff5500;
+
+            background: #fff4ec;
+        }
+
+        .icone {
+
+            font-size: 28px;
+
+            display: block;
+
+            margin-bottom: 7px;
+        }
+
+        .opcao strong {
+
+            display: block;
+
+            font-size: 16px;
+
+            color: #333;
+        }
+
+        .opcao span {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #777;
+
+            margin-top: 5px;
+        }
+
+        .campo {
+
+            margin-top: 15px;
+        }
+
+        .campo label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #333;
+        }
+
+        .campo input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .campo input:focus {
+
+            border-color: #ff5500;
+        }
+
+        .entrega-endereco {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 18px;
+
+            background: #fff8f3;
+
+            border-radius: 14px;
+
+            border: 1px solid #ffd8c2;
+        }
+
+        .entrega-endereco.visivel {
+
+            display: block;
+        }
+
+        .resumo {
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: #f7f7f7;
+        }
+
+        .resumo-linha {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            color: #555;
+        }
+
+        .resumo-total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 12px;
+
+            padding-top: 12px;
+
+            border-top: 1px solid #ddd;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #ff4d00;
+        }
+
+        .mensagem {
+
+            display: none;
+
+            background: #ffe5e5;
+
+            color: #c62828;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 18px;
+
+            font-weight: bold;
+        }
+
+        .mensagem.visivel {
+
+            display: block;
+        }
+
+        .botao {
+
+            width: 100%;
+
+            margin-top: 22px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #ff5500;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .botao:hover {
+
+            background: #e64600;
+        }
+
+        .botao:disabled {
+
+            background: #aaa;
+
+            cursor: not-allowed;
+        }
+
+        .voltar {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #777;
+
+            text-decoration: none;
+        }
+
+        .voltar:hover {
+
+            color: #ff5500;
+        }
+
+        @media (max-width: 550px) {
+
+            .container {
+
+                padding: 22px;
+            }
+
+            .opcoes {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>💳 Pagamento</h1>
+
+        <p class="subtitulo">
+            Escolha como deseja receber seu pedido.
+        </p>
+
+
+        <!-- DADOS DO CLIENTE -->
+
+        <div class="cliente-box">
+
+            <div>
+                <strong>Cliente:</strong>
+                {{ cliente }}
+            </div>
+
+            <div style="margin-top: 6px;">
+                <strong>Telefone:</strong>
+                {{ telefone }}
+            </div>
+
+        </div>
+
+
+        <!-- ENTREGA OU RETIRADA -->
+
+        <div class="secao">
+
+            <h2>
+                📦 Como você quer receber?
+            </h2>
+
+            <div class="opcoes">
+
+                <label
+                    class="opcao"
+                    id="opcaoEntrega"
+                >
+
+                    <input
+                        type="radio"
+                        name="entrega"
+                        value="Entrega"
+                        onchange="selecionarEntrega('Entrega')"
+                    >
+
+                    <span class="icone">
+                        🛵
+                    </span>
+
+                    <strong>
+                        Entrega
+                    </strong>
+
+                    <span>
+                        Receber em casa
+                    </span>
+
+                </label>
+
+
+                <label
+                    class="opcao"
+                    id="opcaoRetirada"
+                >
+
+                    <input
+                        type="radio"
+                        name="entrega"
+                        value="Retirada"
+                        onchange="selecionarEntrega('Retirada')"
+                    >
+
+                    <span class="icone">
+                        🏪
+                    </span>
+
+                    <strong>
+                        Retirada
+                    </strong>
+
+                    <span>
+                        Buscar na loja
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <!-- ENDEREÇO -->
+
+            <div
+                class="entrega-endereco"
+                id="campoEndereco"
+            >
+
+                <div class="campo">
+
+                    <label for="endereco">
+                        📍 Endereço para entrega
+                    </label>
+
+                    <input
+                        type="text"
+                        id="endereco"
+                        placeholder="Rua, número, bairro..."
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGAMENTO -->
+
+        <div class="secao">
+
+            <h2>
+                💰 Forma de pagamento
+            </h2>
+
+            <div class="opcoes">
+
+                <label class="opcao">
+
+                    <input
+                        type="radio"
+                        name="pagamento"
+                        value="Pix"
+                    >
+
+                    <span class="icone">
+                        💠
+                    </span>
+
+                    <strong>
+                        Pix
+                    </strong>
+
+                    <span>
+                        Pagamento via Pix
+                    </span>
+
+                </label>
+
+
+                <label class="opcao">
+
+                    <input
+                        type="radio"
+                        name="pagamento"
+                        value="Dinheiro"
+                    >
+
+                    <span class="icone">
+                        💵
+                    </span>
+
+                    <strong>
+                        Dinheiro
+                    </strong>
+
+                    <span>
+                        Pagar na entrega
+                    </span>
+
+                </label>
+
+
+                <label class="opcao">
+
+                    <input
+                        type="radio"
+                        name="pagamento"
+                        value="Cartão"
+                    >
+
+                    <span class="icone">
+                        💳
+                    </span>
+
+                    <strong>
+                        Cartão
+                    </strong>
+
+                    <span>
+                        Pagar com cartão
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESUMO -->
+
+        <div class="resumo">
+
+            <div class="resumo-linha">
+
+                <span>
+                    Forma de recebimento
+                </span>
+
+                <strong id="resumoEntrega">
+                    Não escolhida
+                </strong>
+
+            </div>
+
+            <div class="resumo-linha">
+
+                <span>
+                    Pagamento
+                </span>
+
+                <strong id="resumoPagamento">
+                    Não escolhido
+                </strong>
+
+            </div>
+
+            <div class="resumo-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span id="total">
+                    R$ 0,00
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENSAGEM -->
+
+        <div
+            class="mensagem"
+            id="mensagem"
+        ></div>
+
+
+        <!-- FINALIZAR -->
+
+        <button
+            class="botao"
+            id="botaoFinalizar"
+            onclick="finalizarPedido()"
+        >
+            Confirmar pedido
+        </button>
+
+
+        <a
+            class="voltar"
+            href="/pedido"
+        >
+            ← Voltar para o cardápio
+        </a>
+
+    </div>
+
+
+    <script>
+
+        // =================================================
+        // PEGAR CARRINHO
+        // =================================================
+
+        function pegarCarrinho() {
+
+            const possiveisNomes = [
+                "carrinho",
+                "cart",
+                "pedido"
+            ];
+
+            for (
+                const nome of possiveisNomes
+            ) {
+
+                try {
+
+                    const salvo =
+                        localStorage.getItem(nome);
+
+                    if (salvo) {
+
+                        const dados =
+                            JSON.parse(salvo);
+
+                        if (
+                            Array.isArray(dados) &&
+                            dados.length > 0
+                        ) {
+
+                            return dados;
+                        }
+                    }
+
+                } catch (erro) {
+
+                    console.log(
+                        "Erro lendo:",
+                        nome,
+                        erro
+                    );
+                }
+            }
+
+            return [];
+        }
+
+
+        // =================================================
+        // CALCULAR TOTAL
+        // =================================================
+
+        function calcularTotal() {
+
+            const carrinho =
+                pegarCarrinho();
+
+            let total = 0;
+
+            carrinho.forEach(item => {
+
+                const preco =
+                    Number(item.preco) || 0;
+
+                const quantidade =
+                    Number(item.quantidade) || 1;
+
+                total +=
+                    preco * quantidade;
+
+            });
+
+            return total;
+        }
+
+
+        // =================================================
+        // FORMATAR DINHEIRO
+        // =================================================
+
+        function formatarDinheiro(valor) {
+
+            return valor.toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+        }
+
+
+        // =================================================
+        // ATUALIZAR TOTAL
+        // =================================================
+
+        function atualizarTotal() {
+
+            const total =
+                calcularTotal();
+
+            document.getElementById(
+                "total"
+            ).textContent =
+                formatarDinheiro(total);
+        }
+
+
+        // =================================================
+        // ENTREGA / RETIRADA
+        // =================================================
+
+        function selecionarEntrega(tipo) {
+
+            const opcaoEntrega =
+                document.getElementById(
+                    "opcaoEntrega"
+                );
+
+            const opcaoRetirada =
+                document.getElementById(
+                    "opcaoRetirada"
+                );
+
+            const campoEndereco =
+                document.getElementById(
+                    "campoEndereco"
+                );
+
+            const resumoEntrega =
+                document.getElementById(
+                    "resumoEntrega"
+                );
+
+
+            if (tipo === "Entrega") {
+
+                opcaoEntrega.classList.add(
+                    "selecionada"
+                );
+
+                opcaoRetirada.classList.remove(
+                    "selecionada"
+                );
+
+                campoEndereco.classList.add(
+                    "visivel"
+                );
+
+                resumoEntrega.textContent =
+                    "Entrega";
+
+            } else {
+
+                opcaoRetirada.classList.add(
+                    "selecionada"
+                );
+
+                opcaoEntrega.classList.remove(
+                    "selecionada"
+                );
+
+                campoEndereco.classList.remove(
+                    "visivel"
+                );
+
+                document.getElementById(
+                    "endereco"
+                ).value = "";
+
+                resumoEntrega.textContent =
+                    "Retirada";
+            }
+        }
+
+
+        // =================================================
+        // PAGAMENTO
+        // =================================================
+
+        document
+            .querySelectorAll(
+                'input[name="pagamento"]'
+            )
+            .forEach(input => {
+
+                input.addEventListener(
+                    "change",
+                    function() {
+
+                        document
+                            .querySelectorAll(
+                                'input[name="pagamento"]'
+                            )
+                            .forEach(outro => {
+
+                                outro
+                                    .closest(".opcao")
+                                    .classList
+                                    .remove(
+                                        "selecionada"
+                                    );
+
+                            });
+
+                        this
+                            .closest(".opcao")
+                            .classList
+                            .add(
+                                "selecionada"
+                            );
+
+                        document.getElementById(
+                            "resumoPagamento"
+                        ).textContent =
+                            this.value;
+
+                    }
+                );
+
+            });
+
+
+        // =================================================
+        // MOSTRAR MENSAGEM
+        // =================================================
+
+        function mostrarMensagem(texto) {
+
+            const mensagem =
+                document.getElementById(
+                    "mensagem"
+                );
+
+            mensagem.textContent =
+                texto;
+
+            mensagem.classList.add(
+                "visivel"
+            );
+        }
+
+
+        // =================================================
+        // ESCONDER MENSAGEM
+        // =================================================
+
+        function esconderMensagem() {
+
+            const mensagem =
+                document.getElementById(
+                    "mensagem"
+                );
+
+            mensagem.textContent = "";
+
+            mensagem.classList.remove(
+                "visivel"
+            );
+        }
+
+
+        // =================================================
+        // FINALIZAR PEDIDO
+        // =================================================
+
+        async function finalizarPedido() {
+
+            esconderMensagem();
+
+            const carrinho =
+                pegarCarrinho();
+
+            if (
+                !carrinho ||
+                carrinho.length === 0
+            ) {
+
+                mostrarMensagem(
+                    "Seu carrinho está vazio."
+                );
+
+                return;
+            }
+
+
+            // ---------------------------------------------
+            // ENTREGA
+            // ---------------------------------------------
+
+            const entregaSelecionada =
+                document.querySelector(
+                    'input[name="entrega"]:checked'
+                );
+
+            if (!entregaSelecionada) {
+
+                mostrarMensagem(
+                    "Escolha entre entrega ou retirada."
+                );
+
+                return;
+            }
+
+            const entrega =
+                entregaSelecionada.value;
+
+
+            // ---------------------------------------------
+            // ENDEREÇO
+            // ---------------------------------------------
+
+            let endereco = "";
+
+            if (entrega === "Entrega") {
+
+                endereco =
+                    document
+                        .getElementById(
+                            "endereco"
+                        )
+                        .value
+                        .trim();
+
+                if (!endereco) {
+
+                    mostrarMensagem(
+                        "Digite o endereço para entrega."
+                    );
+
+                    document
+                        .getElementById(
+                            "endereco"
+                        )
+                        .focus();
+
+                    return;
+                }
+            }
+
+
+            // ---------------------------------------------
+            // PAGAMENTO
+            // ---------------------------------------------
+
+            const pagamentoSelecionado =
+                document.querySelector(
+                    'input[name="pagamento"]:checked'
+                );
+
+            if (!pagamentoSelecionado) {
+
+                mostrarMensagem(
+                    "Escolha uma forma de pagamento."
+                );
+
+                return;
+            }
+
+            const pagamento =
+                pagamentoSelecionado.value;
+
+
+            // ---------------------------------------------
+            // TOTAL
+            // ---------------------------------------------
+
+            const total =
+                calcularTotal();
+
+
+            // ---------------------------------------------
+            // BOTÃO
+            // ---------------------------------------------
+
+            const botao =
+                document.getElementById(
+                    "botaoFinalizar"
+                );
+
+            botao.disabled = true;
+
+            botao.textContent =
+                "Finalizando...";
+
+
+            // ---------------------------------------------
+            // ENVIAR PARA FLASK
+            // ---------------------------------------------
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        "/finalizar-pedido",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                carrinho:
+                                    carrinho,
+
+                                pagamento:
+                                    pagamento,
+
+                                entrega:
+                                    entrega,
+
+                                endereco:
+                                    endereco,
+
+                                total:
+                                    total
+                            })
+                        }
+                    );
+
+
+                const resultado =
+                    await resposta.json();
+
+
+                // -----------------------------------------
+                // NÃO LOGADO
+                // -----------------------------------------
+
+                if (
+                    resposta.status === 401
+                ) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // ERRO
+                // -----------------------------------------
+
+                if (
+                    !resultado.sucesso
+                ) {
+
+                    mostrarMensagem(
+                        resultado.mensagem ||
+                        "Não foi possível finalizar o pedido."
+                    );
+
+                    botao.disabled =
+                        false;
+
+                    botao.textContent =
+                        "Confirmar pedido";
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // SUCESSO
+                // -----------------------------------------
+
+                localStorage.removeItem(
+                    "carrinho"
+                );
+
+                localStorage.removeItem(
+                    "cart"
+                );
+
+                localStorage.removeItem(
+                    "pedido"
+                );
+
+
+                window.location.href =
+                    "/pedido-confirmado?id=" +
+                    resultado.pedido_id;
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+                mostrarMensagem(
+                    "Erro de conexão com o servidor."
+                );
+
+                botao.disabled =
+                    false;
+
+                botao.textContent =
+                    "Confirmar pedido";
+            }
+        }
+
+
+        // =================================================
+        // INICIAR
+        // =================================================
+
+        atualizarTotal();
+
+    </script>
+
+</body>
+
+</html>

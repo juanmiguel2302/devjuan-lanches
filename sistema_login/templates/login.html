@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - Lanchonete DevJuan</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7a00,
+                    #ff3d00
+                );
+
+            padding: 20px;
+        }
+
+        .login-container {
+
+            width: 390px;
+
+            max-width: 100%;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 40px rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+            text-align: center;
+        }
+
+        h1 {
+
+            color: #ff4d00;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+
+            color: #777;
+
+            margin-bottom: 25px;
+        }
+
+        .campo {
+
+            text-align: left;
+
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .campo input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .campo input:focus {
+
+            border-color: #ff5a00;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #ff5500;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+
+            background: #e64600;
+        }
+
+        .mensagem {
+
+            background: #ffe5e5;
+
+            color: #c62828;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-weight: bold;
+        }
+
+        .cadastro {
+
+            margin-top: 20px;
+
+            color: #666;
+        }
+
+        .cadastro a {
+
+            color: #ff5500;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .cadastro a:hover {
+
+            text-decoration: underline;
+        }
+
+        .voltar {
+
+            display: block;
+
+            margin-top: 20px;
+
+            color: #777;
+
+            text-decoration: none;
+        }
+
+        .voltar:hover {
+
+            color: #ff5500;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>🍔 Entrar</h1>
+
+        <p class="subtitulo">
+            Entre na sua conta para fazer seu pedido.
+        </p>
+
+        {% if mensagem %}
+
+            <div class="mensagem">
+                {{ mensagem }}
+            </div>
+
+        {% endif %}
+
+        <form
+            method="POST"
+            action="/login"
+        >
+
+            <div class="campo">
+
+                <label for="nome">
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+
+        <div class="cadastro">
+
+            Ainda não tem uma conta?
+
+            <a href="/cadastro">
+                Criar cadastro
+            </a>
+
+        </div>
+
+
+        <a
+            class="voltar"
+            href="/"
+        >
+            ← Voltar para o início
+        </a>
+
+    </div>
+
+</body>
+
+</html>

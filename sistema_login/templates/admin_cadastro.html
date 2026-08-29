@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cadastro Administrativo</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827,
+                    #1f2937
+                );
+        }
+
+        .admin-container {
+
+            width: 390px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.35);
+
+            text-align: center;
+        }
+
+        h1 {
+
+            color: #111827;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+
+            color: #777;
+
+            margin-bottom: 25px;
+        }
+
+        .campo {
+
+            text-align: left;
+
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .campo input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .campo input:focus {
+
+            border-color: #111827;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #111827;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+
+            background: #000;
+        }
+
+        .mensagem {
+
+            background: #ffe5e5;
+
+            color: #c62828;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-weight: bold;
+        }
+
+        .login {
+
+            margin-top: 20px;
+
+            color: #666;
+        }
+
+        .login a {
+
+            color: #111827;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .login a:hover {
+
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <h1>🔐 Criar administrador</h1>
+
+        <p class="subtitulo">
+            Cadastre o acesso administrativo.
+        </p>
+
+        {% if mensagem %}
+
+            <div class="mensagem">
+                {{ mensagem }}
+            </div>
+
+        {% endif %}
+
+        <form
+            method="POST"
+            action="/admin-cadastro"
+        >
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Digite o e-mail"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Crie uma senha"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <label for="confirmar_senha">
+                    Confirmar senha
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    placeholder="Digite a senha novamente"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Criar administrador
+            </button>
+
+        </form>
+
+        <div class="login">
+
+            Já possui acesso?
+
+            <a href="/admin-login">
+                Entrar
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

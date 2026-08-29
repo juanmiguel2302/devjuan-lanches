@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Painel Administrativo - DevJuan</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        /* =========================================
+           TOPO
+        ========================================= */
+
+        header {
+            background: linear-gradient(
+                135deg,
+                #ff7a00,
+                #ff3d00
+            );
+
+            color: white;
+
+            padding: 22px 35px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+
+        .admin-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .admin-email {
+            font-size: 14px;
+
+            opacity: 0.95;
+        }
+
+        .btn-sair {
+            background: white;
+
+            color: #ff4d00;
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .btn-sair:hover {
+            background: #ffe9dc;
+        }
+
+
+        /* =========================================
+           CONTAINER
+        ========================================= */
+
+        .container {
+            width: 95%;
+
+            max-width: 1350px;
+
+            margin: 30px auto;
+        }
+
+
+        /* =========================================
+           TITULO
+        ========================================= */
+
+        .titulo-pagina {
+            margin-bottom: 20px;
+        }
+
+        .titulo-pagina h2 {
+            font-size: 24px;
+        }
+
+        .titulo-pagina p {
+            color: #777;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================
+           RESUMO
+        ========================================= */
+
+        .resumo {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            border-left: 5px solid #ff5500;
+        }
+
+        .card h3 {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+        .numero {
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #ff5500;
+        }
+
+        .card-subtitulo {
+            color: #888;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================
+           SEGUNDO RESUMO
+        ========================================= */
+
+        .resumo-menor {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        .card-menor {
+            background: white;
+
+            padding: 18px;
+
+            border-radius: 13px;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .card-menor h3 {
+            font-size: 13px;
+
+            color: #777;
+
+            margin-bottom: 8px;
+        }
+
+        .numero-menor {
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+
+        /* =========================================
+           PEDIDOS
+        ========================================= */
+
+        .pedidos-container {
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .pedidos-container h2 {
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================
+           PEDIDO
+        ========================================= */
+
+        .pedido {
+            border: 1px solid #e5e5e5;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            background: #fff;
+        }
+
+        .pedido-topo {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+            gap: 15px;
+        }
+
+        .pedido-id {
+            font-size: 19px;
+
+            font-weight: bold;
+        }
+
+        .cliente {
+            color: #555;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================
+           STATUS ATUAL
+        ========================================= */
+
+        .status-atual {
+            display: inline-block;
+
+            padding: 8px 13px;
+
+            border-radius: 20px;
+
+            background: #fff3e8;
+
+            color: #e65100;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           INFORMAÇÕES
+        ========================================= */
+
+        .pedido-info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #f7f7f7;
+
+            padding: 12px;
+
+            border-radius: 8px;
+        }
+
+        .info-box strong {
+            display: block;
+
+            font-size: 12px;
+
+            color: #777;
+
+            margin-bottom: 4px;
+        }
+
+
+        /* =========================================
+           ITENS
+        ========================================= */
+
+        .itens {
+            background: #fafafa;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .item {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 8px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+
+        /* =========================================
+           CONTROLE STATUS
+        ========================================= */
+
+        .status-area {
+            border-top: 1px solid #eee;
+
+            padding-top: 18px;
+        }
+
+        .status-area strong {
+            display: block;
+
+            margin-bottom: 10px;
+        }
+
+        .botoes-status {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+        .form-status {
+            display: inline-block;
+        }
+
+        .btn-status {
+            border: none;
+
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            background: #eee;
+
+            color: #333;
+
+            transition: 0.2s;
+        }
+
+        .btn-status:hover {
+            transform: translateY(-1px);
+
+            background: #ddd;
+        }
+
+        .btn-pago {
+            background: #e7f8ed;
+
+            color: #16843d;
+        }
+
+        .btn-preparacao {
+            background: #fff2d9;
+
+            color: #b56a00;
+        }
+
+        .btn-pronto {
+            background: #e5f2ff;
+
+            color: #1769aa;
+        }
+
+        .btn-entregue {
+            background: #e6f7f0;
+
+            color: #087a53;
+        }
+
+        .btn-cancelar {
+            background: #ffe1e1;
+
+            color: #c62828;
+        }
+
+        .btn-cancelar:hover {
+            background: #ffcaca;
+        }
+
+
+        /* =========================================
+           SEM PEDIDOS
+        ========================================= */
+
+        .sem-pedidos {
+            text-align: center;
+
+            color: #777;
+
+            padding: 50px 10px;
+        }
+
+        .sem-pedidos h3 {
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================================
+           RESPONSIVO
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .resumo {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .resumo-menor {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+        }
+
+
+        @media (max-width: 800px) {
+
+            header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .resumo {
+                grid-template-columns: 1fr;
+            }
+
+            .resumo-menor {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pedido-info {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-topo {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .resumo-menor {
+                grid-template-columns: 1fr;
+            }
+
+            .pedidos-container {
+                padding: 15px;
+            }
+
+            .pedido {
+                padding: 15px;
+            }
+
+            .botoes-status {
+                flex-direction: column;
+            }
+
+            .form-status {
+                width: 100%;
+            }
+
+            .btn-status {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         TOPO
+    ========================================= -->
+
+    <header>
+
+        <div>
+
+            <h1>
+                🍔 Painel Administrativo
+            </h1>
+
+        </div>
+
+
+        <div class="admin-info">
+
+            <span class="admin-email">
+                {{ admin_email }}
+            </span>
+
+            <a
+                href="/admin-logout"
+                class="btn-sair"
+            >
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         CONTEÚDO
+    ========================================= -->
+
+    <main class="container">
+
+
+        <!-- =====================================
+             TÍTULO
+        ====================================== -->
+
+        <section class="titulo-pagina">
+
+            <h2>
+                Visão geral
+            </h2>
+
+            <p>
+                Acompanhe as vendas e controle os pedidos da lanchonete.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             PRINCIPAIS INDICADORES
+        ====================================== -->
+
+        <section class="resumo">
+
+
+            <!-- FATURAMENTO -->
+
+            <div class="card">
+
+                <h3>
+                    💰 TOTAL VENDIDO
+                </h3>
+
+                <div class="numero">
+
+                    R$
+                    {{ "%.2f"|format(faturamento)|replace(".", ",") }}
+
+                </div>
+
+                <div class="card-subtitulo">
+                    Pedidos não cancelados
+                </div>
+
+            </div>
+
+
+            <!-- PEDIDOS -->
+
+            <div class="card">
+
+                <h3>
+                    📦 TOTAL DE PEDIDOS
+                </h3>
+
+                <div class="numero">
+                    {{ total_pedidos }}
+                </div>
+
+                <div class="card-subtitulo">
+                    Todos os pedidos recebidos
+                </div>
+
+            </div>
+
+
+            <!-- ENTREGUES -->
+
+            <div class="card">
+
+                <h3>
+                    🛵 ENTREGUES
+                </h3>
+
+                <div class="numero">
+                    {{ pedidos_entregues }}
+                </div>
+
+                <div class="card-subtitulo">
+
+                    R$
+                    {{ "%.2f"|format(valor_entregue)|replace(".", ",") }}
+
+                </div>
+
+            </div>
+
+
+            <!-- CANCELADOS -->
+
+            <div class="card">
+
+                <h3>
+                    ❌ CANCELADOS
+                </h3>
+
+                <div class="numero">
+                    {{ pedidos_cancelados }}
+                </div>
+
+                <div class="card-subtitulo">
+
+                    R$
+                    {{ "%.2f"|format(valor_cancelado)|replace(".", ",") }}
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================
+             STATUS DOS PEDIDOS
+        ====================================== -->
+
+        <section class="resumo-menor">
+
+
+            <div class="card-menor">
+
+                <h3>
+                    👥 CLIENTES
+                </h3>
+
+                <div class="numero-menor">
+                    {{ total_clientes }}
+                </div>
+
+            </div>
+
+
+            <div class="card-menor">
+
+                <h3>
+                    🕐 PROCESSANDO
+                </h3>
+
+                <div class="numero-menor">
+                    {{ pedidos_processamento }}
+                </div>
+
+            </div>
+
+
+            <div class="card-menor">
+
+                <h3>
+                    💰 PAGOS
+                </h3>
+
+                <div class="numero-menor">
+                    {{ pedidos_pagos }}
+                </div>
+
+            </div>
+
+
+            <div class="card-menor">
+
+                <h3>
+                    👨‍🍳 PREPARAÇÃO
+                </h3>
+
+                <div class="numero-menor">
+                    {{ pedidos_preparacao }}
+                </div>
+
+            </div>
+
+
+            <div class="card-menor">
+
+                <h3>
+                    ✅ PRONTOS
+                </h3>
+
+                <div class="numero-menor">
+                    {{ pedidos_prontos }}
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================
+             PEDIDOS
+        ====================================== -->
+
+        <section class="pedidos-container">
+
+
+            <h2>
+                📦 Pedidos recebidos
+            </h2>
+
+
+            {% if pedidos %}
+
+
+                {% for pedido in pedidos %}
+
+
+                    <div class="pedido">
+
+
+                        <!-- =========================
+                             CABEÇALHO
+                        ========================== -->
+
+                        <div class="pedido-topo">
+
+
+                            <div>
+
+                                <div class="pedido-id">
+
+                                    Pedido #{{ pedido['id'] }}
+
+                                </div>
+
+
+                                <div class="cliente">
+
+                                    Cliente:
+
+                                    <strong>
+                                        {{ pedido['cliente'] }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="status-atual">
+
+                                {{ pedido['status'] }}
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =========================
+                             INFORMAÇÕES
+                        ========================== -->
+
+                        <div class="pedido-info">
+
+
+                            <div class="info-box">
+
+                                <strong>
+                                    PAGAMENTO
+                                </strong>
+
+                                {{ pedido['pagamento'] }}
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <strong>
+                                    TOTAL
+                                </strong>
+
+                                R$
+
+                                {{ "%.2f"|format(
+                                    pedido['total']
+                                )|replace(".", ",") }}
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <strong>
+                                    STATUS
+                                </strong>
+
+                                {{ pedido['status'] }}
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =========================
+                             ITENS
+                        ========================== -->
+
+                        <div class="itens">
+
+
+                            <strong>
+                                Itens do pedido
+                            </strong>
+
+
+                            <br><br>
+
+
+                            {% set lista_itens = pedido['itens']|from_json %}
+
+
+                            {% if lista_itens %}
+
+
+                                {% for item in lista_itens %}
+
+
+                                    <div class="item">
+
+
+                                        <span>
+
+                                            {{ item['quantidade'] }}
+
+                                            x
+
+                                            {{ item['nome'] }}
+
+                                        </span>
+
+
+                                        <span>
+
+                                            R$
+
+                                            {{ "%.2f"|format(
+                                                item['preco'] *
+                                                item['quantidade']
+                                            )|replace(".", ",") }}
+
+                                        </span>
+
+
+                                    </div>
+
+
+                                {% endfor %}
+
+
+                            {% else %}
+
+                                <div class="item">
+
+                                    <span>
+                                        Nenhum item encontrado.
+                                    </span>
+
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                        <!-- =========================
+                             CONTROLE DE STATUS
+                        ========================== -->
+
+                        <div class="status-area">
+
+
+                            <strong>
+                                Alterar status:
+                            </strong>
+
+
+                            <div class="botoes-status">
+
+
+                                <!-- PROCESSANDO -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Em processamento"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status"
+                                    >
+                                        🕐 Em processamento
+                                    </button>
+
+                                </form>
+
+
+                                <!-- PAGO -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Pago"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status btn-pago"
+                                    >
+                                        💰 Pago
+                                    </button>
+
+                                </form>
+
+
+                                <!-- PREPARAÇÃO -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Em preparação"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status btn-preparacao"
+                                    >
+                                        👨‍🍳 Em preparação
+                                    </button>
+
+                                </form>
+
+
+                                <!-- PRONTO -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Pronto"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status btn-pronto"
+                                    >
+                                        ✅ Pronto
+                                    </button>
+
+                                </form>
+
+
+                                <!-- ENTREGUE -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Entregue"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status btn-entregue"
+                                    >
+                                        🛵 Entregue
+                                    </button>
+
+                                </form>
+
+
+                                <!-- CANCELADO -->
+
+                                <form
+                                    class="form-status"
+                                    method="POST"
+                                    action="/admin/alterar-status/{{ pedido['id'] }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="Cancelado"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-status btn-cancelar"
+                                    >
+                                        ❌ Cancelado
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="sem-pedidos">
+
+                    <h3>
+                        📭 Nenhum pedido ainda
+                    </h3>
+
+                    <p>
+                        Quando um cliente fizer um pedido,
+                        ele aparecerá aqui.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

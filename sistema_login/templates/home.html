@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DevJuan Lanches</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            color: #ffcc00;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #111;
+            background: #ffcc00;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        nav .escuro {
+            background: #333;
+            color: white;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.55),
+                    rgba(0,0,0,.55)
+                ),
+                url(
+                    "{{ url_for('static', filename='xburguer.jpg') }}"
+                );
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 700px;
+        }
+
+        .hero h2 {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .btn-principal {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffcc00;
+            color: #111;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .bem-vindo {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .separador {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .separador h2 {
+            margin-bottom: 10px;
+        }
+
+        .separador p {
+            color: #777;
+        }
+
+        @media(max-width: 650px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 35px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+    <h1>
+        🍔 DevJuan Lanches
+    </h1>
+
+
+    <nav>
+
+
+        {% if cliente %}
+
+            <a href="/pedido">
+                Cardápio
+            </a>
+
+            <a href="/meus-pedidos">
+                Meus pedidos
+            </a>
+
+            <a
+                href="/sair"
+                class="escuro"
+            >
+                Sair
+            </a>
+
+
+        {% else %}
+
+            <a href="/login">
+                Entrar
+            </a>
+
+            <a href="/cadastro">
+                Cadastrar
+            </a>
+
+        {% endif %}
+
+
+    </nav>
+
+
+</header>
+
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        {% if cliente %}
+
+            <h2>
+                Olá, {{ cliente }}! 👋
+            </h2>
+
+            <p>
+                O que vamos pedir hoje?
+            </p>
+
+        {% else %}
+
+            <h2>
+                Seu lanche favorito 🍔
+            </h2>
+
+            <p>
+                Lanches preparados na hora,
+                do jeito que você gosta.
+            </p>
+
+        {% endif %}
+
+
+        <a
+            class="btn-principal"
+            href="/pedido"
+        >
+            Ver cardápio
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+<div class="separador">
+
+    <h2>
+        DevJuan Lanches
+    </h2>
+
+    <p>
+        Faça seu pedido de forma rápida e fácil.
+    </p>
+
+</div>
+
+
+</body>
+
+</html>
