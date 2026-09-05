@@ -164,6 +164,13 @@
             font-size: 70px;
         }
 
+        .produto-foto {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+        }
+
         .produto-info {
             padding: 18px;
         }
@@ -616,209 +623,58 @@
 
         <section class="cardapio">
 
+            {% if produtos %}
 
-            <!-- X-BURGUER -->
+                {% for produto in produtos %}
+                    <div class="produto">
 
-            <div class="produto">
+                        {% if produto["imagem"] %}
+    <img
+        src="{{ url_for('static', filename='uploads/' ~ produto['imagem']) }}"
+        alt="{{ produto['nome'] }}"
+        class="produto-foto"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+    >
 
-                <div class="produto-imagem">
-                    🍔
-                </div>
+    <div
+        class="produto-imagem"
+        style="display:none;"
+    >
+        🍔
+    </div>
+{% else %}
+    <div class="produto-imagem">
+        🍔
+    </div>
+{% endif %}
 
-                <div class="produto-info">
+                        <div class="produto-info">
+                            <h3>{{ produto["nome"] }}</h3>
 
-                    <h3>
-                        X-Burguer
-                    </h3>
+                            <p>{{ produto["descricao"] }}</p>
 
-                    <p>
-                        Hambúrguer, queijo e molho especial.
-                    </p>
+                            <div class="preco">
+                                R$ {{ "%.2f"|format(produto["preco"])|replace('.', ',') }}
+                            </div>
 
-                    <div class="preco">
-                        R$ 20,00
+                            <button
+                                class="botao-adicionar"
+                                onclick="adicionarProduto(this)"
+                                data-nome="{{ produto['nome'] }}"
+                                data-preco="{{ produto['preco'] }}"
+                            >
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
                     </div>
+                {% endfor %}
 
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('X-Burguer', 20)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
+            {% else %}
+                <div style="grid-column: 1 / -1; text-align:center; padding:40px; background:white; border-radius:15px;">
+                    <h3>Cardápio vazio</h3>
+                    <p style="margin-top:10px;color:#666;">O administrador ainda não cadastrou produtos.</p>
                 </div>
-
-            </div>
-
-
-            <!-- X-SALADA -->
-
-            <div class="produto">
-
-                <div class="produto-imagem">
-                    🥪
-                </div>
-
-                <div class="produto-info">
-
-                    <h3>
-                        X-Salada
-                    </h3>
-
-                    <p>
-                        Hambúrguer, queijo, salada e molho.
-                    </p>
-
-                    <div class="preco">
-                        R$ 22,00
-                    </div>
-
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('X-Salada', 22)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- HOT DOG -->
-
-            <div class="produto">
-
-                <div class="produto-imagem">
-                    🌭
-                </div>
-
-                <div class="produto-info">
-
-                    <h3>
-                        Hot Dog
-                    </h3>
-
-                    <p>
-                        Cachorro-quente completo.
-                    </p>
-
-                    <div class="preco">
-                        R$ 18,00
-                    </div>
-
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('Hot Dog', 18)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- BATATA -->
-
-            <div class="produto">
-
-                <div class="produto-imagem">
-                    🍟
-                </div>
-
-                <div class="produto-info">
-
-                    <h3>
-                        Batata Frita
-                    </h3>
-
-                    <p>
-                        Batata frita crocante.
-                    </p>
-
-                    <div class="preco">
-                        R$ 15,00
-                    </div>
-
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('Batata Frita', 15)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- REFRIGERANTE -->
-
-            <div class="produto">
-
-                <div class="produto-imagem">
-                    🥤
-                </div>
-
-                <div class="produto-info">
-
-                    <h3>
-                        Refrigerante
-                    </h3>
-
-                    <p>
-                        Refrigerante gelado.
-                    </p>
-
-                    <div class="preco">
-                        R$ 7,00
-                    </div>
-
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('Refrigerante', 7)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- SOBREMESA -->
-
-            <div class="produto">
-
-                <div class="produto-imagem">
-                    🍰
-                </div>
-
-                <div class="produto-info">
-
-                    <h3>
-                        Sobremesa
-                    </h3>
-
-                    <p>
-                        Uma sobremesa deliciosa.
-                    </p>
-
-                    <div class="preco">
-                        R$ 10,00
-                    </div>
-
-                    <button
-                        class="botao-adicionar"
-                        onclick="adicionarCarrinho('Sobremesa', 10)"
-                    >
-                        Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </div>
+            {% endif %}
 
         </section>
 
@@ -969,6 +825,14 @@
         /* =========================
            ADICIONAR PRODUTO
         ========================= */
+
+        function adicionarProduto(botao) {
+            const nome = botao.dataset.nome;
+            const preco = Number(botao.dataset.preco);
+
+            adicionarCarrinho(nome, preco);
+        }
+
 
         function adicionarCarrinho(nome, preco) {
 

@@ -10,360 +10,278 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Pagamento - Lanchonete DevJuan</title>
+    <title>Pagamento - DevJuan</title>
 
     <style>
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
 
-            min-height: 100vh;
+        header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-            font-family: Arial, sans-serif;
+        header h1 {
+            font-size: 24px;
+        }
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff7a00,
-                    #ff3d00
-                );
-
-            padding: 30px 20px;
+        .voltar {
+            text-decoration: none;
+            color: white;
+            background: #333;
+            padding: 11px 16px;
+            border-radius: 8px;
+            font-weight: bold;
         }
 
         .container {
-
-            width: 100%;
-
-            max-width: 650px;
-
-            margin: 0 auto;
-
-            background: white;
-
-            border-radius: 22px;
-
-            padding: 30px;
-
-            box-shadow:
-                0 15px 40px rgba(
-                    0,
-                    0,
-                    0,
-                    0.25
-                );
+            width: 94%;
+            max-width: 1100px;
+            margin: 35px auto;
         }
 
-        h1 {
-
+        .titulo {
             text-align: center;
+            margin-bottom: 30px;
+        }
 
-            color: #ff4d00;
-
+        .titulo h2 {
+            font-size: 32px;
             margin-bottom: 8px;
         }
 
-        .subtitulo {
-
-            text-align: center;
-
-            color: #777;
-
-            margin-bottom: 25px;
+        .titulo p {
+            color: #666;
         }
 
-        .cliente-box {
-
-            background: #fff4ec;
-
-            border: 1px solid #ffd4b8;
-
-            border-radius: 14px;
-
-            padding: 15px;
-
-            margin-bottom: 25px;
+        .grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 25px;
         }
 
-        .cliente-box strong {
-
-            color: #ff4d00;
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            margin-bottom: 20px;
         }
 
-        .secao {
-
-            margin-top: 22px;
-        }
-
-        .secao h2 {
-
-            font-size: 19px;
-
-            margin-bottom: 12px;
-
-            color: #333;
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 20px;
         }
 
         .opcoes {
-
             display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
             gap: 12px;
         }
 
         .opcao {
-
             border: 2px solid #ddd;
-
-            border-radius: 14px;
-
+            border-radius: 12px;
             padding: 16px;
-
             cursor: pointer;
-
-            transition: 0.2s;
-
-            text-align: center;
+            transition: .2s;
         }
 
         .opcao:hover {
-
-            border-color: #ff7a00;
+            border-color: #ff9800;
         }
 
         .opcao input {
+            margin-right: 10px;
+        }
 
+        .opcao.selecionado {
+            border-color: #ff9800;
+            background: #fff8ed;
+        }
+
+        .endereco-box {
             display: none;
+            margin-top: 18px;
         }
 
-        .opcao.selecionada {
-
-            border-color: #ff5500;
-
-            background: #fff4ec;
-        }
-
-        .icone {
-
-            font-size: 28px;
-
+        .endereco-box.mostrar {
             display: block;
-
-            margin-bottom: 7px;
         }
 
-        .opcao strong {
-
+        label {
             display: block;
-
-            font-size: 16px;
-
-            color: #333;
-        }
-
-        .opcao span {
-
-            display: block;
-
-            font-size: 13px;
-
-            color: #777;
-
-            margin-top: 5px;
-        }
-
-        .campo {
-
-            margin-top: 15px;
-        }
-
-        .campo label {
-
-            display: block;
-
             font-weight: bold;
-
-            margin-bottom: 7px;
-
-            color: #333;
+            margin-bottom: 8px;
         }
 
-        .campo input {
-
+        textarea {
             width: 100%;
-
-            padding: 14px;
-
-            border: 1px solid #ddd;
-
+            min-height: 110px;
+            resize: vertical;
+            border: 1px solid #ccc;
             border-radius: 10px;
-
-            font-size: 16px;
-
+            padding: 13px;
+            font-family: inherit;
+            font-size: 15px;
             outline: none;
         }
 
-        .campo input:focus {
-
-            border-color: #ff5500;
+        textarea:focus {
+            border-color: #ff9800;
         }
 
-        .entrega-endereco {
-
-            display: none;
-
-            margin-top: 15px;
-
-            padding: 18px;
-
-            background: #fff8f3;
-
-            border-radius: 14px;
-
-            border: 1px solid #ffd8c2;
-        }
-
-        .entrega-endereco.visivel {
-
-            display: block;
-        }
-
-        .resumo {
-
-            margin-top: 25px;
-
-            padding: 18px;
-
-            border-radius: 14px;
-
-            background: #f7f7f7;
-        }
-
-        .resumo-linha {
-
+        .resumo-item {
             display: flex;
-
             justify-content: space-between;
-
-            margin-bottom: 8px;
-
-            color: #555;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .resumo-total {
+        .resumo-item:last-child {
+            border-bottom: none;
+        }
 
+        .total {
             display: flex;
-
             justify-content: space-between;
-
-            margin-top: 12px;
-
-            padding-top: 12px;
-
-            border-top: 1px solid #ddd;
-
-            font-size: 20px;
-
+            font-size: 23px;
             font-weight: bold;
-
-            color: #ff4d00;
-        }
-
-        .mensagem {
-
-            display: none;
-
-            background: #ffe5e5;
-
-            color: #c62828;
-
-            padding: 12px;
-
-            border-radius: 10px;
-
-            margin-top: 18px;
-
-            font-weight: bold;
-        }
-
-        .mensagem.visivel {
-
-            display: block;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 2px solid #ddd;
         }
 
         .botao {
-
             width: 100%;
-
-            margin-top: 22px;
-
-            padding: 16px;
-
             border: none;
-
-            border-radius: 12px;
-
-            background: #ff5500;
-
+            border-radius: 10px;
+            padding: 16px;
+            background: #28a745;
             color: white;
-
-            font-size: 18px;
-
+            font-size: 17px;
             font-weight: bold;
-
             cursor: pointer;
-
-            transition: 0.2s;
+            margin-top: 20px;
         }
 
         .botao:hover {
-
-            background: #e64600;
+            background: #218838;
         }
 
         .botao:disabled {
-
-            background: #aaa;
-
+            background: #999;
             cursor: not-allowed;
         }
 
-        .voltar {
+        .simulado {
+            background: #fff8ed;
+            border: 1px solid #ffd18a;
+            padding: 14px;
+            border-radius: 10px;
+            color: #7a4a00;
+            font-size: 14px;
+            margin-top: 15px;
+        }
 
+        .mensagem {
+            display: none;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .mensagem.erro {
             display: block;
+            background: #ffe5e5;
+            color: #a30000;
+        }
 
+        .pix-box,
+        .cartao-box,
+        .dinheiro-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-radius: 10px;
+        }
+
+        .pix-box.mostrar,
+        .cartao-box.mostrar,
+        .dinheiro-box.mostrar {
+            display: block;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .sucesso {
+            display: none;
             text-align: center;
+            background: white;
+            border-radius: 16px;
+            padding: 45px 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
 
-            margin-top: 18px;
+        .sucesso h2 {
+            color: #28a745;
+            margin-bottom: 12px;
+        }
 
-            color: #777;
+        .sucesso p {
+            color: #666;
+            margin-bottom: 20px;
+        }
 
+        .botao-voltar {
+            display: inline-block;
             text-decoration: none;
+            background: #ff9800;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 9px;
+            font-weight: bold;
         }
 
-        .voltar:hover {
+        @media (max-width: 800px) {
 
-            color: #ff5500;
-        }
-
-        @media (max-width: 550px) {
-
-            .container {
-
-                padding: 22px;
-            }
-
-            .opcoes {
-
+            .grid {
                 grid-template-columns: 1fr;
             }
+
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
         }
 
     </style>
@@ -372,467 +290,503 @@
 
 <body>
 
-    <div class="container">
+<header>
 
-        <h1>💳 Pagamento</h1>
+    <h1>
+        💳 Pagamento - Lanchonete DevJuan
+    </h1>
 
-        <p class="subtitulo">
-            Escolha como deseja receber seu pedido.
+    <a
+        href="/pedido"
+        class="voltar"
+    >
+        ← Voltar ao cardápio
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <div class="titulo">
+
+        <h2>
+            Finalizar Pedido
+        </h2>
+
+        <p>
+            Olá, {{ cliente }}! Confira seu pedido antes de finalizar.
         </p>
 
-
-        <!-- DADOS DO CLIENTE -->
-
-        <div class="cliente-box">
-
-            <div>
-                <strong>Cliente:</strong>
-                {{ cliente }}
-            </div>
-
-            <div style="margin-top: 6px;">
-                <strong>Telefone:</strong>
-                {{ telefone }}
-            </div>
-
-        </div>
+    </div>
 
 
-        <!-- ENTREGA OU RETIRADA -->
+    <div
+        id="mensagem"
+        class="mensagem"
+    ></div>
 
-        <div class="secao">
 
-            <h2>
-                📦 Como você quer receber?
-            </h2>
+    <div
+        id="conteudo"
+        class="grid"
+    >
 
-            <div class="opcoes">
+        <!-- =================================================
+             COLUNA ESQUERDA
+        ================================================== -->
 
-                <label
-                    class="opcao"
-                    id="opcaoEntrega"
-                >
+        <div>
 
-                    <input
-                        type="radio"
-                        name="entrega"
-                        value="Entrega"
-                        onchange="selecionarEntrega('Entrega')"
+            <!-- ENTREGA -->
+
+            <section class="card">
+
+                <h3>
+                    🚚 Forma de entrega
+                </h3>
+
+                <div class="opcoes">
+
+                    <label
+                        class="opcao"
+                        id="opcaoEntrega"
                     >
 
-                    <span class="icone">
-                        🛵
-                    </span>
+                        <input
+                            type="radio"
+                            name="entrega"
+                            value="Entrega"
+                        >
 
-                    <strong>
-                        Entrega
-                    </strong>
+                        🚚 Entrega
 
-                    <span>
-                        Receber em casa
-                    </span>
-
-                </label>
+                    </label>
 
 
-                <label
-                    class="opcao"
-                    id="opcaoRetirada"
-                >
-
-                    <input
-                        type="radio"
-                        name="entrega"
-                        value="Retirada"
-                        onchange="selecionarEntrega('Retirada')"
+                    <label
+                        class="opcao"
+                        id="opcaoRetirada"
                     >
 
-                    <span class="icone">
-                        🏪
-                    </span>
+                        <input
+                            type="radio"
+                            name="entrega"
+                            value="Retirada no local"
+                        >
 
-                    <strong>
-                        Retirada
-                    </strong>
+                        🏪 Retirada no local
 
-                    <span>
-                        Buscar na loja
-                    </span>
+                    </label>
 
-                </label>
-
-            </div>
+                </div>
 
 
-            <!-- ENDEREÇO -->
-
-            <div
-                class="entrega-endereco"
-                id="campoEndereco"
-            >
-
-                <div class="campo">
+                <div
+                    id="enderecoBox"
+                    class="endereco-box"
+                >
 
                     <label for="endereco">
                         📍 Endereço para entrega
                     </label>
 
-                    <input
-                        type="text"
+                    <textarea
                         id="endereco"
-                        placeholder="Rua, número, bairro..."
-                    >
+                        placeholder="Digite rua, número, bairro e complemento..."
+                    ></textarea>
 
                 </div>
 
-            </div>
+            </section>
+
+
+            <!-- PAGAMENTO -->
+
+            <section class="card">
+
+                <h3>
+                    💳 Forma de pagamento
+                </h3>
+
+                <div class="opcoes">
+
+                    <label
+                        class="opcao"
+                        id="opcaoPix"
+                    >
+
+                        <input
+                            type="radio"
+                            name="pagamento"
+                            value="PIX"
+                        >
+
+                        🟢 PIX
+
+                    </label>
+
+
+                    <label
+                        class="opcao"
+                        id="opcaoCartao"
+                    >
+
+                        <input
+                            type="radio"
+                            name="pagamento"
+                            value="Cartão"
+                        >
+
+                        💳 Cartão
+
+                    </label>
+
+
+                    <label
+                        class="opcao"
+                        id="opcaoDinheiro"
+                    >
+
+                        <input
+                            type="radio"
+                            name="pagamento"
+                            value="Dinheiro"
+                        >
+
+                        💵 Dinheiro
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    id="pixBox"
+                    class="pix-box"
+                >
+
+                    <strong>
+                        PIX SIMULADO
+                    </strong>
+
+                    <p style="margin-top:8px;color:#666;">
+                        Nesta versão o pagamento é apenas uma simulação.
+                        Nenhum dinheiro será cobrado.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="cartaoBox"
+                    class="cartao-box"
+                >
+
+                    <div class="campo">
+
+                        <label>
+                            Número do cartão
+                        </label>
+
+                        <input
+                            type="text"
+                            id="numeroCartao"
+                            placeholder="0000 0000 0000 0000"
+                            maxlength="19"
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label>
+                            Nome no cartão
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeCartao"
+                            placeholder="Nome"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="dinheiroBox"
+                    class="dinheiro-box"
+                >
+
+                    <strong>
+                        💵 Pagamento em dinheiro
+                    </strong>
+
+                    <p style="margin-top:8px;color:#666;">
+                        O pagamento será realizado no momento da retirada/entrega.
+                    </p>
+
+                </div>
+
+
+                <div class="simulado">
+
+                    ⚠️ <strong>Pagamento simulado:</strong>
+                    esta versão não utiliza gateway real.
+                    O pedido será registrado normalmente no sistema.
+
+                </div>
+
+            </section>
 
         </div>
 
 
-        <!-- PAGAMENTO -->
+        <!-- =================================================
+             RESUMO
+        ================================================== -->
 
-        <div class="secao">
+        <div>
 
-            <h2>
-                💰 Forma de pagamento
-            </h2>
+            <section class="card">
 
-            <div class="opcoes">
+                <h3>
+                    🛒 Resumo do pedido
+                </h3>
 
-                <label class="opcao">
+                <div id="resumo"></div>
 
-                    <input
-                        type="radio"
-                        name="pagamento"
-                        value="Pix"
-                    >
-
-                    <span class="icone">
-                        💠
-                    </span>
-
-                    <strong>
-                        Pix
-                    </strong>
+                <div class="total">
 
                     <span>
-                        Pagamento via Pix
+                        Total
                     </span>
-
-                </label>
-
-
-                <label class="opcao">
-
-                    <input
-                        type="radio"
-                        name="pagamento"
-                        value="Dinheiro"
-                    >
-
-                    <span class="icone">
-                        💵
-                    </span>
-
-                    <strong>
-                        Dinheiro
-                    </strong>
 
                     <span>
-                        Pagar na entrega
+                        R$
+                        <span id="total">
+                            0,00
+                        </span>
                     </span>
 
-                </label>
+                </div>
 
 
-                <label class="opcao">
+                <button
+                    id="finalizar"
+                    class="botao"
+                    onclick="confirmarPedido()"
+                >
+                    Confirmar pedido
+                </button>
 
-                    <input
-                        type="radio"
-                        name="pagamento"
-                        value="Cartão"
-                    >
-
-                    <span class="icone">
-                        💳
-                    </span>
-
-                    <strong>
-                        Cartão
-                    </strong>
-
-                    <span>
-                        Pagar com cartão
-                    </span>
-
-                </label>
-
-            </div>
+            </section>
 
         </div>
-
-
-        <!-- RESUMO -->
-
-        <div class="resumo">
-
-            <div class="resumo-linha">
-
-                <span>
-                    Forma de recebimento
-                </span>
-
-                <strong id="resumoEntrega">
-                    Não escolhida
-                </strong>
-
-            </div>
-
-            <div class="resumo-linha">
-
-                <span>
-                    Pagamento
-                </span>
-
-                <strong id="resumoPagamento">
-                    Não escolhido
-                </strong>
-
-            </div>
-
-            <div class="resumo-total">
-
-                <span>
-                    Total
-                </span>
-
-                <span id="total">
-                    R$ 0,00
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- MENSAGEM -->
-
-        <div
-            class="mensagem"
-            id="mensagem"
-        ></div>
-
-
-        <!-- FINALIZAR -->
-
-        <button
-            class="botao"
-            id="botaoFinalizar"
-            onclick="finalizarPedido()"
-        >
-            Confirmar pedido
-        </button>
-
-
-        <a
-            class="voltar"
-            href="/pedido"
-        >
-            ← Voltar para o cardápio
-        </a>
 
     </div>
 
 
-    <script>
+    <!-- =====================================================
+         SUCESSO
+    ====================================================== -->
 
-        // =================================================
-        // PEGAR CARRINHO
-        // =================================================
+    <div
+        id="sucesso"
+        class="sucesso"
+    >
 
-        function pegarCarrinho() {
+        <h2>
+            ✅ Pedido realizado!
+        </h2>
 
-            const possiveisNomes = [
-                "carrinho",
-                "cart",
-                "pedido"
-            ];
+        <p>
+            Seu pedido foi registrado com sucesso.
+        </p>
 
-            for (
-                const nome of possiveisNomes
-            ) {
+        <p>
+            Número do pedido:
+            <strong id="numeroPedido"></strong>
+        </p>
 
-                try {
+        <p>
+            Status:
+            <strong>Em processamento</strong>
+        </p>
 
-                    const salvo =
-                        localStorage.getItem(nome);
+        <a
+            href="/meus-pedidos"
+            class="botao-voltar"
+        >
+            Ver meus pedidos
+        </a>
 
-                    if (salvo) {
+    </div>
 
-                        const dados =
-                            JSON.parse(salvo);
+</main>
 
-                        if (
-                            Array.isArray(dados) &&
-                            dados.length > 0
-                        ) {
 
-                            return dados;
-                        }
-                    }
+<script>
 
-                } catch (erro) {
+    // =====================================================
+    // CARRINHO
+    // =====================================================
 
-                    console.log(
-                        "Erro lendo:",
-                        nome,
-                        erro
-                    );
-                }
-            }
+    let carrinho = [];
 
-            return [];
+    let totalPedido = 0;
+
+
+    function carregarCarrinho() {
+
+        const salvo =
+            localStorage.getItem(
+                "carrinhoDevJuan"
+            );
+
+        if (!salvo) {
+
+            mostrarErro(
+                "Seu carrinho está vazio."
+            );
+
+            return;
+
         }
 
+        try {
 
-        // =================================================
-        // CALCULAR TOTAL
-        // =================================================
+            carrinho = JSON.parse(
+                salvo
+            );
 
-        function calcularTotal() {
+        } catch (erro) {
 
-            const carrinho =
-                pegarCarrinho();
+            carrinho = [];
 
-            let total = 0;
+        }
 
-            carrinho.forEach(item => {
+        if (
+            !Array.isArray(carrinho)
+            || carrinho.length === 0
+        ) {
 
-                const preco =
-                    Number(item.preco) || 0;
+            mostrarErro(
+                "Seu carrinho está vazio."
+            );
+
+            return;
+
+        }
+
+        mostrarResumo();
+
+    }
+
+
+    // =====================================================
+    // RESUMO
+    // =====================================================
+
+    function mostrarResumo() {
+
+        const resumo =
+            document.getElementById(
+                "resumo"
+            );
+
+        resumo.innerHTML = "";
+
+        totalPedido = 0;
+
+        carrinho.forEach(
+            function(item) {
 
                 const quantidade =
-                    Number(item.quantidade) || 1;
+                    Number(
+                        item.quantidade
+                    );
 
-                total +=
+                const preco =
+                    Number(
+                        item.preco
+                    );
+
+                const subtotal =
                     preco * quantidade;
 
-            });
+                totalPedido += subtotal;
 
-            return total;
-        }
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
+                div.className =
+                    "resumo-item";
 
-        // =================================================
-        // FORMATAR DINHEIRO
-        // =================================================
+                div.innerHTML = `
 
-        function formatarDinheiro(valor) {
+                    <span>
+                        ${escapeHtml(item.nome)}
+                        × ${quantidade}
+                    </span>
 
-            return valor.toLocaleString(
-                "pt-BR",
-                {
-                    style: "currency",
-                    currency: "BRL"
-                }
-            );
-        }
+                    <strong>
+                        R$ ${subtotal.toFixed(2).replace(".", ",")}
+                    </strong>
 
+                `;
 
-        // =================================================
-        // ATUALIZAR TOTAL
-        // =================================================
-
-        function atualizarTotal() {
-
-            const total =
-                calcularTotal();
-
-            document.getElementById(
-                "total"
-            ).textContent =
-                formatarDinheiro(total);
-        }
-
-
-        // =================================================
-        // ENTREGA / RETIRADA
-        // =================================================
-
-        function selecionarEntrega(tipo) {
-
-            const opcaoEntrega =
-                document.getElementById(
-                    "opcaoEntrega"
+                resumo.appendChild(
+                    div
                 );
 
-            const opcaoRetirada =
-                document.getElementById(
-                    "opcaoRetirada"
-                );
-
-            const campoEndereco =
-                document.getElementById(
-                    "campoEndereco"
-                );
-
-            const resumoEntrega =
-                document.getElementById(
-                    "resumoEntrega"
-                );
-
-
-            if (tipo === "Entrega") {
-
-                opcaoEntrega.classList.add(
-                    "selecionada"
-                );
-
-                opcaoRetirada.classList.remove(
-                    "selecionada"
-                );
-
-                campoEndereco.classList.add(
-                    "visivel"
-                );
-
-                resumoEntrega.textContent =
-                    "Entrega";
-
-            } else {
-
-                opcaoRetirada.classList.add(
-                    "selecionada"
-                );
-
-                opcaoEntrega.classList.remove(
-                    "selecionada"
-                );
-
-                campoEndereco.classList.remove(
-                    "visivel"
-                );
-
-                document.getElementById(
-                    "endereco"
-                ).value = "";
-
-                resumoEntrega.textContent =
-                    "Retirada";
             }
-        }
+        );
+
+        document.getElementById(
+            "total"
+        ).textContent =
+            totalPedido
+                .toFixed(2)
+                .replace(".", ",");
+
+    }
 
 
-        // =================================================
-        // PAGAMENTO
-        // =================================================
+    // =====================================================
+    // ESCAPAR HTML
+    // =====================================================
 
-        document
-            .querySelectorAll(
-                'input[name="pagamento"]'
-            )
-            .forEach(input => {
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+
+    }
+
+
+    // =====================================================
+    // ENTREGA
+    // =====================================================
+
+    document
+        .querySelectorAll(
+            'input[name="entrega"]'
+        )
+        .forEach(
+            function(input) {
 
                 input.addEventListener(
                     "change",
@@ -840,309 +794,374 @@
 
                         document
                             .querySelectorAll(
-                                'input[name="pagamento"]'
+                                ".opcao"
                             )
-                            .forEach(outro => {
+                            .forEach(
+                                function(opcao) {
 
-                                outro
-                                    .closest(".opcao")
-                                    .classList
-                                    .remove(
-                                        "selecionada"
-                                    );
+                                    if (
+                                        opcao.querySelector(
+                                            'input[name="entrega"]'
+                                        )
+                                    ) {
 
-                            });
+                                        opcao.classList.remove(
+                                            "selecionado"
+                                        );
+
+                                    }
+
+                                }
+                            );
 
                         this
                             .closest(".opcao")
-                            .classList
-                            .add(
-                                "selecionada"
+                            .classList.add(
+                                "selecionado"
                             );
 
-                        document.getElementById(
-                            "resumoPagamento"
-                        ).textContent =
-                            this.value;
+
+                        const enderecoBox =
+                            document.getElementById(
+                                "enderecoBox"
+                            );
+
+                        if (
+                            this.value === "Entrega"
+                        ) {
+
+                            enderecoBox.classList.add(
+                                "mostrar"
+                            );
+
+                        } else {
+
+                            enderecoBox.classList.remove(
+                                "mostrar"
+                            );
+
+                        }
 
                     }
                 );
 
-            });
+            }
+        );
 
 
-        // =================================================
-        // MOSTRAR MENSAGEM
-        // =================================================
+    // =====================================================
+    // PAGAMENTO
+    // =====================================================
 
-        function mostrarMensagem(texto) {
+    document
+        .querySelectorAll(
+            'input[name="pagamento"]'
+        )
+        .forEach(
+            function(input) {
 
-            const mensagem =
-                document.getElementById(
-                    "mensagem"
+                input.addEventListener(
+                    "change",
+                    function() {
+
+                        document
+                            .querySelectorAll(
+                                ".opcao"
+                            )
+                            .forEach(
+                                function(opcao) {
+
+                                    if (
+                                        opcao.querySelector(
+                                            'input[name="pagamento"]'
+                                        )
+                                    ) {
+
+                                        opcao.classList.remove(
+                                            "selecionado"
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        this
+                            .closest(".opcao")
+                            .classList.add(
+                                "selecionado"
+                            );
+
+
+                        document
+                            .getElementById(
+                                "pixBox"
+                            )
+                            .classList.remove(
+                                "mostrar"
+                            );
+
+                        document
+                            .getElementById(
+                                "cartaoBox"
+                            )
+                            .classList.remove(
+                                "mostrar"
+                            );
+
+                        document
+                            .getElementById(
+                                "dinheiroBox"
+                            )
+                            .classList.remove(
+                                "mostrar"
+                            );
+
+
+                        if (
+                            this.value === "PIX"
+                        ) {
+
+                            document
+                                .getElementById(
+                                    "pixBox"
+                                )
+                                .classList.add(
+                                    "mostrar"
+                                );
+
+                        }
+
+
+                        if (
+                            this.value === "Cartão"
+                        ) {
+
+                            document
+                                .getElementById(
+                                    "cartaoBox"
+                                )
+                                .classList.add(
+                                    "mostrar"
+                                );
+
+                        }
+
+
+                        if (
+                            this.value === "Dinheiro"
+                        ) {
+
+                            document
+                                .getElementById(
+                                    "dinheiroBox"
+                                )
+                                .classList.add(
+                                    "mostrar"
+                                );
+
+                        }
+
+                    }
                 );
 
-            mensagem.textContent =
-                texto;
+            }
+        );
 
-            mensagem.classList.add(
-                "visivel"
+
+    // =====================================================
+    // CONFIRMAR PEDIDO
+    // =====================================================
+
+    function confirmarPedido() {
+
+        const entregaSelecionada =
+            document.querySelector(
+                'input[name="entrega"]:checked'
             );
+
+        const pagamentoSelecionado =
+            document.querySelector(
+                'input[name="pagamento"]:checked'
+            );
+
+
+        if (!entregaSelecionada) {
+
+            mostrarErro(
+                "Selecione a forma de entrega."
+            );
+
+            return;
+
         }
 
 
-        // =================================================
-        // ESCONDER MENSAGEM
-        // =================================================
+        if (!pagamentoSelecionado) {
 
-        function esconderMensagem() {
-
-            const mensagem =
-                document.getElementById(
-                    "mensagem"
-                );
-
-            mensagem.textContent = "";
-
-            mensagem.classList.remove(
-                "visivel"
+            mostrarErro(
+                "Selecione a forma de pagamento."
             );
+
+            return;
+
         }
 
 
-        // =================================================
-        // FINALIZAR PEDIDO
-        // =================================================
+        let endereco = "";
 
-        async function finalizarPedido() {
 
-            esconderMensagem();
+        if (
+            entregaSelecionada.value === "Entrega"
+        ) {
 
-            const carrinho =
-                pegarCarrinho();
+            endereco =
+                document
+                    .getElementById(
+                        "endereco"
+                    )
+                    .value
+                    .trim();
 
-            if (
-                !carrinho ||
-                carrinho.length === 0
-            ) {
 
-                mostrarMensagem(
-                    "Seu carrinho está vazio."
+            if (!endereco) {
+
+                mostrarErro(
+                    "Informe o endereço para entrega."
                 );
 
                 return;
+
             }
 
+        } else {
 
-            // ---------------------------------------------
-            // ENTREGA
-            // ---------------------------------------------
+            endereco =
+                "Retirada no local";
 
-            const entregaSelecionada =
-                document.querySelector(
-                    'input[name="entrega"]:checked'
-                );
+        }
 
-            if (!entregaSelecionada) {
 
-                mostrarMensagem(
-                    "Escolha entre entrega ou retirada."
-                );
+        const botao =
+            document.getElementById(
+                "finalizar"
+            );
 
-                return;
+
+        botao.disabled = true;
+
+        botao.textContent =
+            "Processando pedido...";
+
+
+        fetch(
+            "/finalizar-pedido",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    carrinho: carrinho,
+
+                    pagamento:
+                        pagamentoSelecionado.value,
+
+                    entrega:
+                        entregaSelecionada.value,
+
+                    endereco:
+                        endereco
+
+                })
+
             }
+        )
 
-            const entrega =
-                entregaSelecionada.value;
+        .then(
+            function(response) {
 
+                return response
+                    .json()
+                    .then(
+                        function(data) {
 
-            // ---------------------------------------------
-            // ENDEREÇO
-            // ---------------------------------------------
+                            return {
+                                ok:
+                                    response.ok,
+                                data:
+                                    data
+                            };
 
-            let endereco = "";
-
-            if (entrega === "Entrega") {
-
-                endereco =
-                    document
-                        .getElementById(
-                            "endereco"
-                        )
-                        .value
-                        .trim();
-
-                if (!endereco) {
-
-                    mostrarMensagem(
-                        "Digite o endereço para entrega."
-                    );
-
-                    document
-                        .getElementById(
-                            "endereco"
-                        )
-                        .focus();
-
-                    return;
-                }
-            }
-
-
-            // ---------------------------------------------
-            // PAGAMENTO
-            // ---------------------------------------------
-
-            const pagamentoSelecionado =
-                document.querySelector(
-                    'input[name="pagamento"]:checked'
-                );
-
-            if (!pagamentoSelecionado) {
-
-                mostrarMensagem(
-                    "Escolha uma forma de pagamento."
-                );
-
-                return;
-            }
-
-            const pagamento =
-                pagamentoSelecionado.value;
-
-
-            // ---------------------------------------------
-            // TOTAL
-            // ---------------------------------------------
-
-            const total =
-                calcularTotal();
-
-
-            // ---------------------------------------------
-            // BOTÃO
-            // ---------------------------------------------
-
-            const botao =
-                document.getElementById(
-                    "botaoFinalizar"
-                );
-
-            botao.disabled = true;
-
-            botao.textContent =
-                "Finalizando...";
-
-
-            // ---------------------------------------------
-            // ENVIAR PARA FLASK
-            // ---------------------------------------------
-
-            try {
-
-                const resposta =
-                    await fetch(
-                        "/finalizar-pedido",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body: JSON.stringify({
-
-                                carrinho:
-                                    carrinho,
-
-                                pagamento:
-                                    pagamento,
-
-                                entrega:
-                                    entrega,
-
-                                endereco:
-                                    endereco,
-
-                                total:
-                                    total
-                            })
                         }
                     );
 
+            }
+        )
 
-                const resultado =
-                    await resposta.json();
-
-
-                // -----------------------------------------
-                // NÃO LOGADO
-                // -----------------------------------------
+        .then(
+            function(resultado) {
 
                 if (
-                    resposta.status === 401
+                    !resultado.ok
+                    || !resultado.data.sucesso
                 ) {
 
-                    window.location.href =
-                        "/login";
-
-                    return;
-                }
-
-
-                // -----------------------------------------
-                // ERRO
-                // -----------------------------------------
-
-                if (
-                    !resultado.sucesso
-                ) {
-
-                    mostrarMensagem(
-                        resultado.mensagem ||
+                    throw new Error(
+                        resultado.data.erro
+                        ||
                         "Não foi possível finalizar o pedido."
                     );
 
-                    botao.disabled =
-                        false;
-
-                    botao.textContent =
-                        "Confirmar pedido";
-
-                    return;
                 }
 
 
-                // -----------------------------------------
-                // SUCESSO
-                // -----------------------------------------
-
                 localStorage.removeItem(
-                    "carrinho"
-                );
-
-                localStorage.removeItem(
-                    "cart"
-                );
-
-                localStorage.removeItem(
-                    "pedido"
+                    "carrinhoDevJuan"
                 );
 
 
-                window.location.href =
-                    "/pedido-confirmado?id=" +
-                    resultado.pedido_id;
+                document
+                    .getElementById(
+                        "conteudo"
+                    )
+                    .style.display =
+                    "none";
 
-            } catch (erro) {
+
+                document
+                    .getElementById(
+                        "sucesso"
+                    )
+                    .style.display =
+                    "block";
+
+
+                document
+                    .getElementById(
+                        "numeroPedido"
+                    )
+                    .textContent =
+                    "#" +
+                    resultado.data.pedido_id;
+
+            }
+        )
+
+        .catch(
+            function(error) {
 
                 console.error(
-                    erro
+                    error
                 );
 
-                mostrarMensagem(
-                    "Erro de conexão com o servidor."
+                mostrarErro(
+                    error.message
                 );
 
                 botao.disabled =
@@ -1150,17 +1169,45 @@
 
                 botao.textContent =
                     "Confirmar pedido";
+
             }
-        }
+        );
+
+    }
 
 
-        // =================================================
-        // INICIAR
-        // =================================================
+    // =====================================================
+    // ERRO
+    // =====================================================
 
-        atualizarTotal();
+    function mostrarErro(mensagem) {
 
-    </script>
+        const elemento =
+            document.getElementById(
+                "mensagem"
+            );
+
+        elemento.textContent =
+            mensagem;
+
+        elemento.className =
+            "mensagem erro";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // =====================================================
+    // INICIAR
+    // =====================================================
+
+    carregarCarrinho();
+
+</script>
 
 </body>
 
