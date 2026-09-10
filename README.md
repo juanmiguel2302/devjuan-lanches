@@ -164,4 +164,5 @@ Em processamento
    Entregue
 ##  Site online
 
-[Acessar a Lanchonete DevJuan](https://devjuan-lanches.onrender.com)cd 
+[Acessar a Lanchonete DevJuan]
+https://devjuan-lanches.onrender.com
