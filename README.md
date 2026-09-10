@@ -1,4 +1,4 @@
-# 🍔 DevJuan Lanches
+# DevJuan Lanches
 
 <p align="center">
   Sistema web completo para gerenciamento de uma lanchonete, desenvolvido com Python, Flask, SQLite, HTML, CSS e JavaScript.
@@ -16,7 +16,7 @@
 
 ---
 
-## 📌 Sobre o projeto
+##  Sobre o projeto
 
 O **DevJuan Lanches** é uma aplicação web desenvolvida para simular o funcionamento de uma lanchonete digital.
 
@@ -28,7 +28,7 @@ O projeto foi desenvolvido com foco em aprendizado prático de desenvolvimento w
 
 ---
 
-## 🎯 Objetivos
+##  Objetivos
 
 O principal objetivo do projeto é colocar em prática conceitos de desenvolvimento de software através da construção de uma aplicação completa.
 
@@ -50,21 +50,21 @@ Durante o desenvolvimento foram trabalhados conceitos como:
 
 ---
 
-# 🚀 Funcionalidades
+#  Funcionalidades
 
-## 👤 Área do cliente
+## Área do cliente
 
 ### Cadastro
 
 O cliente pode criar uma conta informando seus dados e definir uma senha para acessar o sistema.
 
-### 🔐 Login
+###  Login
 
 Sistema de autenticação para clientes e administradores.
 
 O sistema identifica automaticamente o tipo de usuário e direciona cada um para sua respectiva área.
 
-### 🍔 Cardápio
+###  Cardápio
 
 Exibição dos produtos disponíveis, incluindo:
 
@@ -74,7 +74,7 @@ Exibição dos produtos disponíveis, incluindo:
 - Descrição
 - Disponibilidade em estoque
 
-### 🛒 Carrinho
+###  Carrinho
 
 O cliente pode:
 
@@ -85,31 +85,31 @@ O cliente pode:
 - Visualizar subtotal
 - Visualizar valor total
 
-### 💳 Pagamento
+###  Pagamento
 
 O sistema permite selecionar uma forma de pagamento para o pedido.
 
 > O pagamento é simulado, pois o projeto não utiliza um gateway financeiro real.
 
-### 🚚 Entrega
+###  Entrega
 
 O sistema permite trabalhar com informações relacionadas à entrega e endereço do cliente.
 
-### 📦 Pedidos
+###  Pedidos
 
 Após finalizar um pedido, o cliente pode visualizar seus pedidos e acompanhar o status.
 
-### 📋 Histórico
+###  Histórico
 
 Área destinada à visualização dos pedidos realizados pelo cliente.
 
 ---
 
-# 🔑 Área administrativa
+#  Área administrativa
 
 O sistema possui um painel exclusivo para administração da lanchonete.
 
-## 📊 Dashboard
+##  Dashboard
 
 O administrador pode visualizar informações como:
 
@@ -124,7 +124,7 @@ O administrador pode visualizar informações como:
 
 ---
 
-## 🍔 Gerenciamento de produtos
+##  Gerenciamento de produtos
 
 O administrador pode:
 
@@ -138,7 +138,7 @@ O administrador pode:
 
 ---
 
-## 📦 Controle de estoque
+##  Controle de estoque
 
 O estoque dos produtos pode ser atualizado diretamente pelo painel administrativo.
 
@@ -146,7 +146,7 @@ O sistema também verifica a disponibilidade dos produtos antes da realização 
 
 ---
 
-## 📝 Gerenciamento de pedidos
+##  Gerenciamento de pedidos
 
 O administrador pode visualizar os pedidos realizados pelos clientes e atualizar seus respectivos status.
 
@@ -162,3 +162,6 @@ Em processamento
      Pronto
         ↓
    Entregue
+##  Site online
+
+[Acessar a Lanchonete DevJuan](https://devjuan-lanches.onrender.com)cd 
